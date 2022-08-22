@@ -1,0 +1,31 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="main.js"></script>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <select name="select" id="select">
+    <option value="unselected">未選択</option>
+    <option value="animals">動物</option>
+    <option value="fruits">果物</option>
+  </select>
+  <div id="displayArea"></div>
+  <script>
+    $(document).on('change', '#select', function () {
+      $.ajax({
+        type: "POST",
+        data: $('#select').val(),
+        url: "getData.php",
+      }).done(function (response) {
+          $('#displayArea').append(response[0])
+      }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        console.log(XMLHttpRequest);
+        console.log(textStatus);
+        console.log(errorThrown);
+        return;
+      })
+    });
+  </script>
+</body>
+</html>
